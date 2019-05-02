@@ -1,9 +1,8 @@
 var Parse = {
 
-  server: `http://parse.${window.CAMPUS}.hackreactor.com/chatterbox/classes/messages`,
+  server: `http://127.0.0.1:3000/classes/messages`,
 
   create: function(message, successCB, errorCB = null) {
-    console.log("the message is really", message)
     $.ajax({
       url: Parse.server,
       type: 'POST',

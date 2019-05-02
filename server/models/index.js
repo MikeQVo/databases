@@ -4,7 +4,7 @@ module.exports = {
   messages: {
     get: function (callback) {
       /*
-      select messages.id, messages.text, messages.roomname from messages \
+      select messages.id, messages.text, messages.roomname, users.username from messages \
       left outer join users on *messages.userid = users.id) \
       order by messages.id desc
       */
@@ -20,6 +20,10 @@ module.exports = {
       );
     }, // a function which produces all the messages
     post: function (results, callback) {
+      /*
+      insert into messages (text, userid, roomname) \
+      values (?, (select id from users where username = ? limit 1), ?)
+      */
       db.query('INSERT INTO messages SET ', {userName: results.username}, {messageText: results.text}, {roomName: results.roomname}, function(error, results, fields) {
         if (err) {
           throw 'error';
@@ -45,6 +49,9 @@ module.exports = {
       );
     },
     post: function (results, callback) {
+      /*
+      insert into users(username) values (?)
+      */
       db.query('INSERT INTO users SET', {userName: results.username}, function(err, results, fields) {
         if (err) {
           throw 'error';

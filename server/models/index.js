@@ -3,28 +3,25 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (callback) {
-      /*
-      select messages.id, messages.text, messages.roomname, users.username from messages \
-      left outer join users on *messages.userid = users.id) \
-      order by messages.id desc
-      */
-      db.query('select * from messages',
-        function (error, results, fields) {
-          if (error) {
-            throw 'error';
-          } else {
-            console.log('messages fields ---- ', fields);
-            callback(results);
-          }
+
+      var queryStr = 'select messages.id, messages.message_text, messages.room_name, users.user_name from messages \
+                     left outer join users on * messages.user_id = users.id) \
+                     order by messages.id desc';
+
+      db.query(queryStr, function (error, results) {
+        if (error) {
+          throw 'error';
+        } else {
+          callback(results);
         }
-      );
+      });
     }, // a function which produces all the messages
-    post: function (results, callback) {
-      /*
-      insert into messages (text, userid, roomname) \
-      values (?, (select id from users where username = ? limit 1), ?)
-      */
-      db.query('INSERT INTO messages SET ', {userName: results.username}, {messageText: results.text}, {roomName: results.roomname}, function(error, results, fields) {
+    post: function (params, callback) {
+
+      var queryStr = 'insert into messages (message_text, user_id, room_name) \
+                      values (?, (select id from users where user_name = ? limit 1), ?)';
+
+      db.query(queryStr, params, function(err, results) {
         if (err) {
           throw 'error';
         } else {
@@ -37,22 +34,18 @@ module.exports = {
   users: {
     // Ditto as above.
     get: function (callback) {
-      db.query('select * from users',
-        function (error, results, fields) {
-          if (error) {
-            throw 'error';
-          } else {
-            console.log('users field ----- ', fields);
-            callback(results);
-          }
+      var queryStr = 'select * from users';
+      db.query(queryStr, function (error, results) {
+        if (error) {
+          throw 'error';
+        } else {
+          callback(results);
         }
-      );
+      });
     },
-    post: function (results, callback) {
-      /*
-      insert into users(username) values (?)
-      */
-      db.query('INSERT INTO users SET', {userName: results.username}, function(err, results, fields) {
+    post: function (params, callback) {
+      var queryStr = 'insert into users(user_name) values (?)';
+      db.query(queryStr, params, function(err, results) {
         if (err) {
           throw 'error';
         } else {

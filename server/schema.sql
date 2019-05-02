@@ -4,8 +4,7 @@ USE chat;
 
 CREATE TABLE Users (
   ID INTEGER PRIMARY KEY,
-  Username TEXT,
-  Friends INTEGER REFERENCES Users(ID)
+  Username TEXT
 );
 
 CREATE TABLE Rooms (

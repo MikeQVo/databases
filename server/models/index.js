@@ -5,7 +5,7 @@ module.exports = {
     get: function (callback) {
 
       var queryStr = 'select messages.id, messages.message_text, messages.room_name, users.user_name from messages \
-                     left outer join users on * messages.user_id = users.id) \
+                     left outer join users on * (messages.user_id = users.id) \
                      order by messages.id desc';
 
       db.query(queryStr, function (error, results) {

@@ -3,7 +3,7 @@ var FormView = {
   $form: $('form'),
 
   initialize: function() {
-console.log('this is where the formView is')
+
     //prehaps do escape here https://underscorejs.org/#escape
     FormView.$form.on('submit', FormView.handleSubmit);
   },
@@ -11,7 +11,7 @@ console.log('this is where the formView is')
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
-  //  var name = event.target.value;
+    //var name = event.target.value;
 
 
   },

@@ -1,15 +1,15 @@
 var MessageView = {
 
-  render: function(message){
+  render: function(message) {
     // console.log(message);
     var {username, text, roomname} = message;
-    
+
     var template = `<div class="chat ${roomname}">
-                      <div class="username ${_.escape(username)}">${_.escape(username)}</div> 
+                      <div class="username ${_.escape(username)}">${_.escape(username)}</div>
                       <div>${_.escape(text)}</div>
-                    </div>`
+                    </div>`;
     return template;
-    
+
   }
 };
 
@@ -27,7 +27,7 @@ var MessageView = {
 // };
 
 
-// const { username, text, roomname} = message; 
+// const { username, text, roomname} = message;
 
 // this.$chats.append(`<div class="chat">
 // <div class="username">${username}</div>
